@@ -4,13 +4,13 @@
 // একটা শীট হলেও এভাবেই বসাবেন — শুধু একটা লিংক থাকবে লিস্টে
 // কীভাবে CSV লিংক বের করবেন তার নিয়ম README.md ফাইলে দেওয়া আছে
 // ================================
-const SHEET_CSV_URLS = ["https://docs.google.com/spreadsheets/d/e/2PACX-1vQU_8CxXT-FSCwfzgeyFTr_4oeNdSSwh070hQ1OY7v96-gyMpBGV0D2gB--Lin4Hhy1MSLRP7RYDFrh/pub?gid=1866573031&single=true&output=csv",
-"https://docs.google.com/spreadsheets/d/e/2PACX-1vRMzKSiQFhjBEReRxywbTubH0CQGET2z6lINqgU1W5QjRCIj7gbARABZvaDttT_Jg-bZvHWqky6CmOo/pub?gid=6797641&single=true&output=csv",
-"https://docs.google.com/spreadsheets/d/e/2PACX-1vSWBLmDBTlA4PaJd-YaFtHRA5qwRXv5yclVrLQsxlKjije-nM0zS9LuMo2Cp-ANuAp_aXl_-WTDmDP4/pub?gid=683771494&single=true&output=csv",
-"https://docs.google.com/spreadsheets/d/e/2PACX-1vSSsF9azixm0K-LGe_7iTpIgI45GruYTy9oNXvXPnUgQpfQKyoF1590-XyGqOwGOTnaPLD-QaHiXUpI/pub?gid=373688991&single=true&output=csv",
-"https://docs.google.com/spreadsheets/d/e/2PACX-1vRmaO0EUwK4Mk1G-9VPRTcJgOvCRgNKQfonBTxvAZOjQIyHjdqFzJNE6L6915b7vWt-R6aDAlYNsKtc/pub?gid=704123161&single=true&output=csv",
-"https://docs.google.com/spreadsheets/d/e/2PACX-1vSGq7A3I4c5HrNVEFgZY_rg8DpEY_Xlgfmr-2yuV4jcina2ran473eU2AaOVrpZ2dFg4Tn_GKN8QfwH/pub?gid=976144912&single=true&output=csv",
-"https://docs.google.com/spreadsheets/d/e/2PACX-1vRzLKwdg7-q7tx3mfV8TpOXjV_egoOqY1qKC7zZ0ITRFyLLp413NjmiWRGSDWw57hAal4Q1-l6z6TSw/pub?gid=186551713&single=true&output=csv",
+const SHEET_CSV_URLS = ["https://docs.google.com/spreadsheets/d/e/2PACX-1vSAes0FVCOOuCHmNw6tOj28VJyO2zGgCoKarTwW-3XI8RpHmmge01kLuve-_IIWpiqL5A3Eqi21irNI/pub?gid=885591160&single=true&output=csv",
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vT4SPZgwsORn2vkwdvQhyimyH5XaepgESEbUPc7i-lNhOpZa8Ujbjaeayd8Rj-QmizNtpcMEwyhdR1l/pub?gid=1603257872&single=true&output=csv",
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vTnmGq6klJt-mFFI_q7ZYZB9oM5YErb8llJvLmSNgubikX7V2P0R-z-o1bXLvxpdMYLF1UXTv9G1OHz/pub?gid=1685913083&single=true&output=csv",
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vTQoUc6czcG0PedVgfPpmvtjpvFyjPM6sujggiq0YcOqRbo6NTIR7Kc4bbAo6gNXa1XEXnvPIOg7emW/pub?gid=2003078620&single=true&output=csv",
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vSHi8bc4vVnNmIgASFiKKHxnbD5t0WNm9uJ3MXfqYAZsaOwTm8ofDz6cuET82_5Hobw4e3ugE94M1Sq/pub?gid=435586775&single=true&output=csv",
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vTu34TE9peAId5HMhxGbndCf5k6HQ_7zF8sSTnrb1jY00neH3whw6Jsze51FRin5mzzmSXtqAK31JlZ/pub?gid=1086862920&single=true&output=csv",
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vTGDn83yEar5-C4QJUwHUiqZrmvEUunBfUTmLorqzVIvRxdSK-cd-_LyvCG-bgKxu9kdueYEIAEnouv/pub?gid=1217490240&single=true&output=csv",
 ];
 
 // ================================
