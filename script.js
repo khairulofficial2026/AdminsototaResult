@@ -468,10 +468,12 @@ function buildReportCardHTML(row){
         </div>
 
         <div class="report-footer">
-  <span>🔍 Visit: https://sototaprecadet.vercel.app</span>
-  <img class="footer-qr" src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://sototaprecadet.vercel.app" alt="QR" crossorigin="anonymous">
-  <span>${issueTimestamp()}</span>
-</div>
+          <span style="display:flex;align-items:center;gap:5px;">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=60x60&data=https://sototaprecadet.vercel.app" alt="QR" style="width:28px;height:28px;flex-shrink:0;" />
+            Visit: https://sototaprecadet.vercel.app
+          </span>
+          <span>${issueTimestamp()}</span>
+        </div>
       </div>
     </div>`;
 }
