@@ -494,7 +494,7 @@ select.input{
   top:50%; left:50%;
   transform:translate(-50%,-50%);
   width:120mm; height:120mm;
-  background-image:url("logo.png");
+  background-image:url("sototalogo.png");
   background-size:contain;
   background-repeat:no-repeat;
   background-position:center;
