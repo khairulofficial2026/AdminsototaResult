@@ -215,7 +215,7 @@ function calculateMeritForAllClasses(){
     // হলে আগে। GPA এবং Total দুটোই সমান হলে একই Rank হবে। এরপর যারা ফেল করেছে
     // তাদেরও একই নিয়মে (GPA তারপর Total) সাজানো হবে।
     const studentsWithPoints = classStudents.map(row => {
-      let totalPoints = 0, pointSubjectCount = 0, totalObtained = 0, anyFail = false;
+      let totalPoints = 0, pointSubjectCount = 0, totalObtained = 0, anyFail = false, failCount = 0;
 
       subjectKeys.forEach(key => {
         const marks = getSubjectMarks(row, key);
@@ -223,7 +223,10 @@ function calculateMeritForAllClasses(){
         totalPoints += marks.point;
         pointSubjectCount++;
         totalObtained += marks.total;
-        if(marks.result === "FAIL") anyFail = true;
+        if(marks.result === "FAIL"){
+          anyFail = true;
+          failCount++;
+        }
       });
 
       // attendance নম্বর Grand Total-এ যোগ হবে, এবং এখন থেকে attendance-এর
@@ -238,12 +241,13 @@ function calculateMeritForAllClasses(){
       }
 
       const avgGPA = pointSubjectCount ? totalPoints / pointSubjectCount : 0;
-      return { row, avgGPA, totalObtained, anyFail };
+      return { row, avgGPA, totalObtained, anyFail, failCount };
     });
 
-    // (১) পাস আগে, ফেল পরে  (২) GPA বেশি আগে  (৩) Total বেশি আগে
+    // (১) কম Fail Subject আগে (০টা ফেল সবার আগে, তারপর ১টা, ২টা...)
+    // (২) একই Fail সংখ্যায় GPA বেশি আগে  (৩) GPA সমান হলে Total বেশি আগে
     studentsWithPoints.sort((a, b) => {
-      if(a.anyFail !== b.anyFail) return a.anyFail ? 1 : -1;
+      if(a.failCount !== b.failCount) return a.failCount - b.failCount;
       if(b.avgGPA !== a.avgGPA) return b.avgGPA - a.avgGPA;
       return b.totalObtained - a.totalObtained;
     });
@@ -254,9 +258,9 @@ function calculateMeritForAllClasses(){
       const roll = item.row["roll"];
       const prev = studentsWithPoints[index - 1];
 
-      // আগের ছাত্রের সাথে (একই fail-status, একই GPA, একই Total) মিলে গেলে একই Rank
+      // আগের ছাত্রের সাথে (একই Fail সংখ্যা, একই GPA, একই Total) মিলে গেলে একই Rank
       let rank;
-      if(prev && prev.anyFail === item.anyFail &&
+      if(prev && prev.failCount === item.failCount &&
          prev.avgGPA === item.avgGPA && prev.totalObtained === item.totalObtained){
         rank = lastRank;
       } else {
