@@ -226,10 +226,15 @@ function calculateMeritForAllClasses(){
         if(marks.result === "FAIL") anyFail = true;
       });
 
-      // attendance নম্বর Grand Total-এ যোগ হবে (GPA-এর গড়ে যোগ হবে না, আগের মতোই)
+      // attendance নম্বর Grand Total-এ যোগ হবে, এবং এখন থেকে attendance-এর
+      // পয়েন্টও GPA-র গড়ে (সব subject-এর সাথে) যোগ হবে
       const attendanceMarks = getCombinedAttendance(row);
       if(attendanceMarks){
         totalObtained += attendanceMarks.obtained;
+        const attPct = (attendanceMarks.obtained / attendanceMarks.max) * 100;
+        const attPoint = gradeFromPercent(attPct).point;
+        totalPoints += attPoint;
+        pointSubjectCount++;
       }
 
       const avgGPA = pointSubjectCount ? totalPoints / pointSubjectCount : 0;
@@ -327,7 +332,9 @@ function buildReportCardHTML(row){
       </tr>`;
   });
 
-  // Attendance (উপস্থিতি) — টোটালে যোগ হওয়া আরেকটা আলাদা লাইন
+  // Attendance (উপস্থিতি) — টোটালে যোগ হওয়া আরেকটা আলাদা লাইন।
+  // এখন থেকে attendance-এর পয়েন্টও (অন্যান্য সব subject-এর মতোই) overall
+  // GPA-র গড়ে যোগ হবে, আর তার নিজের GPA/point ঘরে সংখ্যাটাও দেখাবে (আর "-" না)
   const attendanceMarks = getCombinedAttendance(row);
   if(attendanceMarks){
     const attPct = (attendanceMarks.obtained / attendanceMarks.max) * 100;
@@ -340,8 +347,10 @@ function buildReportCardHTML(row){
     totalObtained += attendanceMarks.obtained;
     totalMax += attendanceMarks.max;
     subjectCount++;
-    // নোট: attendance-এর পয়েন্ট (attPoint) ইচ্ছাকৃতভাবে GPA-এর গড়ে যোগ
-    // করা হচ্ছে না — শুধু এর নম্বর (obtained) গ্র্যান্ড টোটালে যোগ হচ্ছে
+
+    // attendance-এর পয়েন্টও এখন GPA-র গড়ে যোগ হচ্ছে (আগে বাদ ছিল)
+    totalPoints += attPoint;
+    pointSubjectCount++;
 
     subjectRowsHTML += `
       <tr>
@@ -352,7 +361,7 @@ function buildReportCardHTML(row){
         <td><b>${toBnDigits(attendanceMarks.obtained)}</b></td>
         <td>${toBnDigits(attPct.toFixed(0))}%</td>
         <td>${noGrade ? '-' : attGrade}</td>
-        <td>-</td>
+        <td>${noGrade ? '-' : toBnDigits(attPoint.toFixed(2))}</td>
         <td class="${attResult === 'PASS' ? 'cell-pass' : 'cell-fail'}">${attResult}</td>
       </tr>`;
   }
@@ -361,8 +370,8 @@ function buildReportCardHTML(row){
   // Grand Total ঘরে আর গড় করে (average percentage থেকে) কোনো GRADE দেখানো হবে না —
   // শুধু PASS/FAILED রেজাল্ট দেখাবে। প্রতিটা বিষয়ের নিজস্ব গ্রেড আলাদাভাবে ওপরের সারিতেই থাকবে।
   const overallResult = anyFail ? "FAILED" : "PASSED";
-  // সামগ্রিক GPA = সব বিষয়ের (attendance বাদে) গ্রেড পয়েন্টের গড়।
-  // কোনো বিষয়ে ফেল করলেও এখন আর GPA ০.০০ দেখাবে না — আসল গড় পয়েন্টই দেখাবে
+  // সামগ্রিক GPA = সব subject + attendance-এর গ্রেড পয়েন্টের গড় (attendance এখন থেকে
+  // আর বাদ না, সব মিলিয়ে মোট subject সংখ্যা দিয়ে ভাগ হচ্ছে)
   const overallGPA = pointSubjectCount ? totalPoints / pointSubjectCount : 0;
 
   // মেরিট ইনফরমেশন বের করা
@@ -409,8 +418,8 @@ function buildReportCardHTML(row){
             <span>RESULT</span>
             <strong>${overallResult === 'PASSED' ? 'PASSED' : 'FAILED'}</strong>
             ${meritInfo && meritInfo.merit ? `<em>${meritInfo.merit.toUpperCase()}</em>` : ''}
+            ${showExcellentBadge ? `<div style="margin-top:5px;padding:3px 8px;background:#fff3cd;color:#8a6500;border:1px solid #ffe08a;border-radius:20px;font-weight:700;font-size:11px;text-align:center;">🌟 Excellent</div>` : ''}
           </div>
-          ${showExcellentBadge ? `<div style="margin-top:6px;padding:4px 12px;background:#fff3cd;color:#8a6500;border:1px solid #ffe08a;border-radius:20px;font-weight:700;font-size:13px;text-align:center;">🌟 Excellent</div>` : ''}
         </div>
 
         <div class="section-title">Student Information</div>
