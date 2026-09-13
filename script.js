@@ -408,7 +408,7 @@ function buildReportCardHTML(row){
       <div class="report-inner">
 
         <div class="report-topbar">
-          <div class="photo-box"><img src="logo.png" alt="${SCHOOL_INFO.name} Logo" onerror="this.style.display='none'"></div>
+          <div class="photo-box"><img src="sototalogo.png" alt="${SCHOOL_INFO.name} Logo" onerror="this.style.display='none'"></div>
           <div class="report-header">
             <h2>${SCHOOL_INFO.name}</h2>
             <p class="report-address">${SCHOOL_INFO.address} &nbsp;|&nbsp; ${SCHOOL_INFO.email}</p>
